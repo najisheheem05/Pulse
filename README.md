@@ -5,12 +5,13 @@ Clinical-impact endpoint defense platform — watches every hospital endpoint, m
 ## Quick Start
 
 ```bash
-make run          # starts API on http://localhost:8000
-# in another terminal:
-make demo SCENARIO=a   # radiology ransomware
-make demo SCENARIO=b   # pharmacy ransomware (Tier-1)
-make demo SCENARIO=c   # infusion pump command
-make demo SCENARIO=d   # benign patching (no alert)
+make run                # starts API on http://localhost:8000
+# in another terminal (or use the dashboard's scenario bar):
+make demo SCENARIO=d    # benign patching (no alert)
+make demo SCENARIO=a    # radiology ransomware
+make demo SCENARIO=b    # pharmacy ransomware (Tier-1)
+make demo SCENARIO=c    # infusion pump command
+make demo SCENARIO=campaign  # ambient hospital + connected 64-event kill chain (recommended)
 ```
 
 Open http://localhost:8000 → dashboard auto-loads.
@@ -129,6 +130,19 @@ hospital-impact-defense/
     ├── index.html         # dashboard (htmx + cytoscape)
     └── app.js             # 1s polling, ranked list + graph + approvals
 ```
+
+## Dashboard (PULSE console)
+
+Top bar with facility pulse (ECG follows the CODE level: nominal → watch → alert →
+code dark) · capability bar with scenario captions and live counters · incident
+queue ranked by clinical impact with budget countdowns · layered dependency graph
+(endpoints → apps → services; red attack path, amber lateral-reach, blast dimming,
+endpoint dossiers on click) · impact ledger (scorebox clinical-vs-technical,
+ATT&CK progression, propagation steps, service cards with feasibility tags,
+signals, two-click human approval modal) · telemetry feed · analytics
+(alert-rate, severity≠impact scatter, posture) · demo console (A/B/C/D/**E**,
+ambient, guided, reset) · audit drawer with one-click verify + tamper demo.
+Field-by-field meaning of everything on screen: **`docs/site_outputs.md`**.
 
 ## Visuals (for the panel)
 

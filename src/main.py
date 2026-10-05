@@ -1,5 +1,6 @@
 """FastAPI app — hospital-impact defense platform."""
 from __future__ import annotations
+import asyncio
 import json
 import os
 from datetime import datetime, timezone
@@ -108,8 +109,10 @@ async def ingest_event(ev: schema.Event):
 
 
 @app.get("/api/incidents")
-def list_incidents():
+def list_incidents(status: str = "open"):
     incs = S.fetch_incidents(S.DB_PATH)
+    if status != "all":
+        incs = [i for i in incs if i.get("status", "open") == status]
     # add recommended action
     for inc in incs:
         top_tier = None
@@ -129,8 +132,16 @@ def get_incident(inc_id: str):
     if inc.get("services_at_risk"):
         top_tier = inc["services_at_risk"][0].get("tier")
         inc["recommendation"] = RP.recommend(top_tier, ep_class, inc.get("risk_score", 0))
-    # actions for this incident
+    # actions + raw signals for this incident (one row per rule — alerts
+    # re-fire on every subsequent event while the rogue condition persists)
+    seen: set[str] = set()
+    sigs = []
+    for a in S.fetch_alerts(S.DB_PATH, inc["endpoint_id"]):
+        if a["rule_id"] not in seen:
+            seen.add(a["rule_id"])
+            sigs.append(a)
     inc["actions"] = RA.list_actions(S.DB_PATH, inc_id)
+    inc["alerts"] = sigs
     return inc
 
 
@@ -139,16 +150,30 @@ class ApproveReq(BaseModel):
     reason: str = ""
 
 
+def _set_incident_status(inc_id: str, status: str) -> dict | None:
+    inc = S.fetch_incident(S.DB_PATH, inc_id)
+    if not inc:
+        return None
+    inc["status"] = status
+    inc["updated_at"] = S.now_iso()
+    S.upsert_incident(S.DB_PATH, inc)
+    return inc
+
+
 @app.post("/api/incidents/{inc_id}/actions/{action}/approve")
 def approve_action(inc_id: str, action: str, req: ApproveReq):
-    # find the pending action
+    # find the pending action (matched by action NAME, e.g. isolate_host_pending_approval)
     acts = RA.list_actions(S.DB_PATH, inc_id)
     act = next((a for a in acts if a["action"] == action and a["status"] == "pending"), None)
     if not act:
-        raise HTTPException(404, "No pending action found")
+        raise HTTPException(404, f"No pending '{action}' action on {inc_id}")
     RA.decide(S.DB_PATH, act["id"], True, req.approver)
     AU.append(S.DB_PATH, req.approver, f"action:approve:{action}", inc_id, {"action_id": act["id"]})
-    return {"ok": True, "action_id": act["id"], "status": "approved"}
+    # the human decision is what contains the endpoint: flip incident state + audit it
+    _set_incident_status(inc_id, "contained")
+    AU.append(S.DB_PATH, req.approver, "incident_contained", inc_id,
+              {"via_action": action, "action_id": act["id"]})
+    return {"ok": True, "action_id": act["id"], "status": "approved", "incident_status": "contained"}
 
 
 @app.post("/api/incidents/{inc_id}/actions/{action}/deny")
@@ -156,20 +181,24 @@ def deny_action(inc_id: str, action: str, req: ApproveReq):
     acts = RA.list_actions(S.DB_PATH, inc_id)
     act = next((a for a in acts if a["action"] == action and a["status"] == "pending"), None)
     if not act:
-        raise HTTPException(404, "No pending action found")
+        raise HTTPException(404, f"No pending '{action}' action on {inc_id}")
     RA.decide(S.DB_PATH, act["id"], False, req.approver)
     AU.append(S.DB_PATH, req.approver, f"action:deny:{action}", inc_id, {"action_id": act["id"], "reason": req.reason})
-    return {"ok": True, "action_id": act["id"], "status": "denied"}
+    # denied: endpoint stays live, incident stays open for re-review
+    return {"ok": True, "action_id": act["id"], "status": "denied", "incident_status": "open"}
 
 
 @app.get("/api/graph")
 def get_graph(highlight_inc: str | None = None):
-    highlight = {}
+    highlight: dict = {}
+    reach: list[tuple[str, str]] = []
     if highlight_inc:
         inc = S.fetch_incident(S.DB_PATH, highlight_inc)
         if inc:
             highlight[highlight_inc] = inc.get("paths", [])
-    return IG.graph_json(GRAPH, highlight)
+            ep = inc.get("endpoint_id", "")
+            reach = [(ep, s) for s in IG.lateral_reachable_services(GRAPH, MODEL, ep)]
+    return IG.graph_json(GRAPH, highlight, reach)
 
 
 @app.post("/api/sim/start")
@@ -205,6 +234,112 @@ def reset_sim():
     return {"ok": True}
 
 
+@app.post("/api/sim/background")
+async def start_background(minutes: int = 15, seed: int = 7):
+    """Fill the hospital with normal traffic so the dashboard feels alive. Quiet by design."""
+    import asyncio
+    from src.simulator import background as BG
+    events = BG.generate(minutes=minutes, seed=seed)
+
+    async def _emit():
+        for ev in events:
+            try:
+                await ingest_event(schema.Event(**ev))
+            except Exception:
+                pass
+            await asyncio.sleep(0.01)
+
+    asyncio.create_task(_emit())
+    return {"ok": True, "events": len(events), "minutes": minutes}
+
+
+def _service_health() -> list[dict]:
+    incs = [i for i in S.fetch_incidents(S.DB_PATH) if i.get("status") == "open"]
+    best: dict[str, float] = {}
+    for inc in incs:
+        for s in inc.get("services_at_risk", []):
+            # service risk is stored 0-1; scale to the 0-100 incident scale
+            best[s["service"]] = max(best.get(s["service"], 0.0), float(s.get("risk", 0)) * 100)
+    out = []
+    for svc, sdef in (MODEL.get("services", {}) or {}).items():
+        r = best.get(svc, 0.0)
+        status = "operational" if r <= 0 else ("watch" if r < 15 else ("degraded" if r < 30 else "critical"))
+        out.append({"service": svc, "tier": sdef.get("tier", 3), "status": status,
+                    "max_risk": round(r, 1),
+                    "fallback": (sdef.get("fallback", {}) or {}).get("name", ""),
+                    "max_downtime_min": sdef.get("max_downtime_min", 60)})
+    return sorted(out, key=lambda s: s["tier"])
+
+
+@app.get("/api/stats")
+def get_stats():
+    latest = S.max_event_ts(S.DB_PATH)
+    recent = 0
+    if latest:
+        try:
+            from datetime import datetime, timedelta
+            since = (datetime.fromisoformat(latest.replace("Z", "+00:00")) - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%M:%SZ")
+            recent = S.count_events(S.DB_PATH, since)
+        except Exception:
+            recent = 0
+    open_incs = [i for i in S.fetch_incidents(S.DB_PATH) if i.get("status") == "open"]
+    all_incs = S.fetch_incidents(S.DB_PATH)
+    open_eps = {i["endpoint_id"] for i in open_incs}
+    contained_eps = {i["endpoint_id"] for i in all_incs if i.get("status") == "contained"} - open_eps
+    alert_eps = {a["endpoint_id"] for a in S.fetch_alerts(S.DB_PATH)} if open_incs else set()
+    ep_status = {}
+    for ep in MODEL.get("endpoints", {}):
+        if ep in open_eps:
+            ep_status[ep] = "compromised"
+        elif ep in contained_eps:
+            ep_status[ep] = "contained"
+        elif ep in alert_eps:
+            ep_status[ep] = "watch"
+        else:
+            ep_status[ep] = "operational"
+    return {"endpoints_monitored": len(MODEL.get("endpoints", {})),
+            "events_total": S.count_events(S.DB_PATH),
+            "events_last_5m": recent,
+            "alerts_total": S.count_alerts(S.DB_PATH),
+            "alert_ts": S.recent_alert_ts(S.DB_PATH),
+            "incidents_open": len(open_incs),
+            "max_risk": max([float(i.get("risk_score", 0)) for i in open_incs] or [0.0]),
+            "endpoint_status": ep_status,
+            "services": _service_health()}
+
+
+def _event_summary(ev: dict) -> str:
+    d = ev.get("details", {}) or {}
+    et = ev.get("event_type", "")
+    if et == "file_rename":
+        return f"{d.get('old_path', '?')} → {d.get('new_path', '?')}"
+    if et == "file_modify":
+        return str(d.get("path", "?"))
+    if et == "process_start":
+        return str(d.get("commandline", d.get("process", "?")))[:90]
+    if et in ("logon", "auth"):
+        return f"{ev.get('user')} {d.get('result', '')} {d.get('logon_type', '')} from {d.get('src_ip', d.get('source_ip', 'local'))}"
+    if et == "net_flow":
+        return f"{d.get('src_ip', '?')} → {d.get('dst_ip', '?')}:{d.get('dst_port', '?')}/{d.get('proto', '')} ({d.get('bytes', 0)}B)"
+    if et == "device_command":
+        return f"{d.get('command', '?')} {d.get('param', '')} from {d.get('src_ip', d.get('from', '?'))}"
+    if et == "backup_job":
+        return f"{d.get('job', '')}: {d.get('action', '')}"
+    if et == "agent_heartbeat":
+        return f"agent {d.get('status', '')} v{d.get('version', '')}"
+    return (d.get("note") or et)[:90]
+
+
+@app.get("/api/events/recent")
+def recent_events(limit: int = 30):
+    evs = S.fetch_events(S.DB_PATH, None, limit=min(limit, 100))
+    hot_eps = {i["endpoint_id"] for i in S.fetch_incidents(S.DB_PATH) if i.get("status") == "open"}
+    return [{"ts": e["ts"], "endpoint_id": e["endpoint_id"], "event_type": e["event_type"],
+             "user": e.get("user", ""), "summary": _event_summary(e),
+             "note": (e.get("details", {}) or {}).get("note", ""),
+             "hot": e["endpoint_id"] in hot_eps} for e in evs]
+
+
 @app.get("/api/audit")
 def get_audit(limit: int = 200):
     return AU.fetch(S.DB_PATH, limit)
@@ -213,6 +348,28 @@ def get_audit(limit: int = 200):
 @app.get("/api/audit/verify")
 def verify_audit():
     return AU.verify(S.DB_PATH)
+
+
+class TamperNote(BaseModel):
+    seq: int | None = None
+
+
+@app.post("/api/audit/tamper")
+def tamper_audit_demo(note: TamperNote | None = None):
+    """DEMO ONLY — simulates an attacker editing the audit store, so the panel's
+    TAMPER button can show verification failing live. Never expose in production."""
+    import sqlite3
+    conn = sqlite3.connect(S.DB_PATH)
+    conn.row_factory = sqlite3.Row
+    rows = conn.execute("SELECT seq FROM audit ORDER BY seq").fetchall()
+    if len(rows) < 1:
+        conn.close()
+        raise HTTPException(400, "Ledger empty — run a scenario first")
+    seq = (note.seq if note and note.seq else (rows[1]["seq"] if len(rows) > 1 else rows[0]["seq"]))
+    conn.execute("UPDATE audit SET payload = payload || ' [ALTERED]' WHERE seq = ?", (seq,))
+    conn.commit()
+    conn.close()
+    return {"ok": True, "tampered_seq": seq}
 
 
 # ---------- UI ----------

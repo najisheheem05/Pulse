@@ -151,6 +151,77 @@ all nodes one shape/color, no legend, hot path barely distinct:
 - Footgun noted: `pkill -f "uvicorn src.main"` matches your own shell — server had to be restarted after the `graph.py` change (no `--reload` on the demo server); DB survived, scenario B intact
 
 **Runbook** — new `docs/runbook.md` + README pointer: every `make` target explained
+
+---
+
+## Living hospital + campaign + dashboard life + outputs doc
+
+**Ambient sim** (`src/simulator/background.py`, `POST /api/sim/background`):
+13 hosts, shift logons / PACS reads / device heartbeats / backup + agent health —
+76 events per 15 min, **0 alerts by construction** (no ext flips, successes only,
+allow-listed/baseline sources, never `device_command`). Proven by
+`test_ambient_is_quiet` (30-min seed) and live (76 ev, 0 alerts, services green).
+
+**Campaign E** (`scripts/make_campaign.py` → 64-event JSON + narration MD):
+after-hours affiliate — VPN brute-force (R5) → nurse ws ransomware (R1+R2+R3) →
+lateral to files/AD/pharmacy (R6×3) → pharmacy ransomware (T1 top, 40.6) →
+camera-to-pump rogue dose/config (R9+R10, passive-only) → backup catalog wipe (R3).
+Live result: **8 incidents**, pharmacy 40.6 > nurse 40.2 > pump 38.8 > backup 30.3.
+
+**Bugs caught live**: (1) `run_sim_async` died after 1 event — `asyncio` imported
+only inside route fns, missing at module level; (2) service-health compared 0–1
+service risk against 0–100 thresholds (all green during a T1 outbreak) — now ×100.
+Also learned: `pkill -f` patterns must be bracketed (`src[.]main:app`) or the shell
+kills itself.
+
+**Dashboard life**: scenario bar (D/A/B/C/E/ambient/reset, no terminal needed),
+header stats (events, 5-min rate, open, max risk), T1/T2/T3 health cards with
+fallback+clock, live event feed (hot rows red, campaign phases purple),
+guided empty states. New endpoints: `/api/stats`, `/api/events/recent`.
+
+**Outputs doc**: `docs/site_outputs.md` — every badge, card, color, clock,
+recommendation, and audit state explained with live Campaign E values.
+
+---
+
+## Approval button post-mortem (reported: "button does nothing")
+
+**Root cause (frontend)**: buttons sent the action's database **ID** (`act-…`) but
+`POST /api/incidents/{id}/actions/{action}/{approve|deny}` resolves the **action
+name** (`isolate_host_pending_approval`) — every click 404'd, and the failure was
+swallowed silently. Fixed `decide()` to send `encodeURIComponent(actionName)`,
+surface HTTP errors in the sim-status line, and `refreshAll()` afterwards.
+
+**Missing semantics (backend)**: approval changed nothing visible — the incident
+stayed open either way. Now **approve → incident `contained`** (+ `incident_contained`
+audit entry): it leaves the open queue (`/api/incidents` filters `status=open`,
+`?status=all` opt-out), feed rows go green, service health recovers; the detail pane
+stays on the contained incident with a `CONTAINED ✓` title instead of blanking.
+**Deny → stays open** with reason audited. New events on a contained endpoint open
+a fresh incident. Added `test_approve_by_name_contains_incident` (ID→404,
+name→contained, queue empties, chain verifies). Live-verified both paths:
+pump approve → contained, radiology deny → open with reason. 16/16 green.
+
+---
+
+## PULSE console reskin (user-supplied reference: `../index.html`, 95 KB static mock)
+
+Kept our backend as the product; adopted the reference **design shell** (CSS + layout
+verbatim, generated into `public/index.html` via scripted transform) and rewrote
+`public/app.js` (~700 lines) against live `/api/*`:
+
+- Queue/capbar/ledger/feed/charts/console/audit-drawer/modal/toasts/ECG all poll
+  real endpoints; the reference's in-browser sim engine was dropped entirely.
+- Backend additions to serve the design: edge `rel` + lateral `reach` edges on
+  highlight, `alerts` (deduped per rule) + fallback readiness/activation in detail,
+  `endpoint_status` + `alert_ts` in stats, demo-only `POST /api/audit/tamper`.
+- Graph positions computed client-side in PULSE columns (endpoints → apps → services).
+- Severity bands + CODE thresholds + technical-severity are DISPLAY-fitted to our
+  measured scale (campaign peak ≈41) and marked as such in code.
+- Approval modal keeps PULSE styling with single-analyst truth (clinical = notified).
+- Vendored `lucide.min.js` (offline-safe icons); Google Fonts with system fallback.
+- Verified: 18/18 tests (new: graph rel/reach, stats/tamper/signals), live ambient +
+  campaign on the new UI (8 incidents, reach edges hot, ledger + scatter render data).
 (run/test/demo/reset/clean/vendor/sim), emitter flags + expected outcome per scenario,
 curl recipes for incidents/detail/graph/approve/audit, tamper demo, `make_visuals.py`,
 troubleshooting table (PYTHONPATH, connection refused, blank graph, port busy).

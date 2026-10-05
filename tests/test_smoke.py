@@ -154,6 +154,116 @@ def test_audit_chain(fresh_db):
 
 
 # run the sim scenarios end-to-end via API (requires running server)
+def test_campaign_fires_expected_rules(fresh_db):
+    import json
+    from collections import defaultdict
+    with open("data/scenarios/e_hospital_campaign.json") as f:
+        events = json.load(f)
+    assert len(events) >= 60, "campaign should be a substantial kill chain"
+    with open("data/rules.yaml") as f:
+        rcfg = safe_load(f)["rules"]
+    by_ep: dict[str, list] = defaultdict(list)
+    for e in events:
+        by_ep[e["endpoint_id"]].append(e)
+    got = {ep: {a["rule_id"] for a in DE.run_all_rules(ep, evs, rcfg)} for ep, evs in by_ep.items()}
+    assert "R5" in got["vpn-jump-01"], f"P1 brute-force failed: {got['vpn-jump-01']}"
+    assert {"R1", "R2", "R3"} <= got["nurse-ws-01"], f"P2 foothold failed: {got['nurse-ws-01']}"
+    assert "R6" in got["filesrv-01"] and "R6" in got["ad-01"], "P3 lateral failed"
+    assert {"R1", "R2", "R3", "R6"} <= got["pharm-srv-01"], f"P4 crown jewels failed: {got['pharm-srv-01']}"
+    assert {"R9", "R10"} <= got["pump-icu-04"], f"P5 IoMT pivot failed: {got['pump-icu-04']}"
+    assert "R3" in got["backup-srv-01"], "P6 recovery kill failed"
+
+
+def test_ambient_is_quiet(fresh_db):
+    from collections import defaultdict
+    from src.simulator import background as BG
+    with open("data/rules.yaml") as f:
+        rcfg = safe_load(f)["rules"]
+    evs = BG.generate(minutes=30, seed=42)
+    assert len(evs) > 50, "ambient should produce a living hospital's worth of traffic"
+    by_ep: dict[str, list] = defaultdict(list)
+    for e in evs:
+        by_ep[e["endpoint_id"]].append(e)
+    noisy = {ep: [a["rule_id"] for a in DE.run_all_rules(ep, e, rcfg)] for ep, e in by_ep.items()}
+    assert all(not v for v in noisy.values()), f"ambient traffic fired rules: {noisy}"
+
+
+def test_approve_by_name_contains_incident(tmp_path, monkeypatch):
+    """Regression test: dashboard sends the action NAME; sending an ID must 404,
+    approving by name must contain the incident and keep the audit chain valid."""
+    from fastapi.testclient import TestClient
+    import src.main as M
+    db = str(tmp_path / "api.db")
+    monkeypatch.setattr(S, "DB_PATH", db)
+    S.init_db(db)
+    c = TestClient(M.app)
+    assert c.post("/api/sim/reset").status_code == 200
+    r = c.post("/api/events", json={
+        "ts": "2026-10-10T02:55:00Z", "endpoint_id": "backup-srv-01",
+        "endpoint_class": "server", "source": "agent", "event_type": "process_start",
+        "user": "backup_svc",
+        "details": {"process": "cmd.exe", "commandline": "vssadmin delete shadows /all /quiet"}})
+    assert r.status_code == 200 and r.json()["alerts_generated"] >= 1
+    incs = c.get("/api/incidents").json()
+    assert len(incs) == 1
+    inc_id = incs[0]["id"]
+    det = c.get(f"/api/incidents/{inc_id}").json()
+    assert det["actions"] and det["actions"][0]["status"] == "pending"
+    action_name = det["actions"][0]["action"]
+    # what the old dashboard sent (an ID) -> 404
+    bad = c.post(f"/api/incidents/{inc_id}/actions/act-deadbeef/approve",
+                 json={"approver": "analyst"})
+    assert bad.status_code == 404
+    # what the fixed dashboard sends (the NAME) -> contained
+    ok = c.post(f"/api/incidents/{inc_id}/actions/{action_name}/approve",
+                json={"approver": "analyst"})
+    assert ok.status_code == 200
+    assert ok.json()["incident_status"] == "contained"
+    assert c.get(f"/api/incidents/{inc_id}").json()["status"] == "contained"
+    assert c.get("/api/incidents").json() == []  # contained leaves the open queue
+    assert c.get("/api/audit/verify").json()["ok"] is True
+
+
+def test_graph_rel_and_reach():
+    model = IG.load_model()
+    g = IG.build_graph(model)
+    j = IG.graph_json(g, {"inc": [["pharm-srv-01", "pharmacy", "medication_administration"]]},
+                      [("pharm-srv-01", "imaging_reads")])
+    by_edge = {(e["source"], e["target"]): e for e in j["edges"]}
+    assert by_edge[("pharm-srv-01", "pharmacy")]["rel"] == "runs"
+    assert by_edge[("pharmacy", "medication_administration")]["rel"] == "serves"
+    assert by_edge[("pharm-srv-01", "imaging_reads")]["rel"] == "reach"
+    hot = [n["id"] for n in j["nodes"] if n["hot"]]
+    assert {"pharm-srv-01", "pharmacy", "medication_administration"} <= set(hot)
+
+
+def test_stats_and_tamper_endpoint(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+    import src.main as M
+    db = str(tmp_path / "api2.db")
+    monkeypatch.setattr(S, "DB_PATH", db)
+    S.init_db(db)
+    c = TestClient(M.app)
+    c.post("/api/sim/reset")
+    c.post("/api/events", json={
+        "ts": "2026-10-10T02:55:00Z", "endpoint_id": "backup-srv-01",
+        "endpoint_class": "server", "source": "agent", "event_type": "process_start",
+        "user": "backup_svc",
+        "details": {"process": "cmd.exe", "commandline": "vssadmin delete shadows /all /quiet"}})
+    st = c.get("/api/stats").json()
+    assert st["endpoint_status"]["backup-srv-01"] == "compromised"
+    assert st["endpoint_status"]["nurse-ws-01"] == "operational"
+    assert len(st["alert_ts"]) >= 1
+    det = c.get("/api/incidents").json()
+    full = c.get(f"/api/incidents/{det[0]['id']}").json()
+    assert full["alerts"] and full["alerts"][0]["rule_id"] == "R3", "detail carries signals"
+    assert full["services_at_risk"][0].get("activate_min") is not None
+    t = c.post("/api/audit/tamper").json()
+    assert t["ok"] is True
+    v = c.get("/api/audit/verify").json()
+    assert v["ok"] is False and v["tampered_seq"] == t["tampered_seq"]
+
+
 def test_scenario_a_radiology(fresh_db):
     import json
     with open("data/scenarios/a_radiology.json") as f:

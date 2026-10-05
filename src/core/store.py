@@ -160,6 +160,37 @@ def fetch_incidents(path: str) -> list[dict]:
     return out
 
 
+def count_events(path: str, since: str | None = None) -> int:
+    conn = connect(path)
+    if since:
+        n = conn.execute("SELECT COUNT(*) c FROM events WHERE ts >= ?", (since,)).fetchone()["c"]
+    else:
+        n = conn.execute("SELECT COUNT(*) c FROM events").fetchone()["c"]
+    conn.close()
+    return int(n)
+
+
+def max_event_ts(path: str) -> str | None:
+    conn = connect(path)
+    r = conn.execute("SELECT MAX(ts) m FROM events").fetchone()
+    conn.close()
+    return r["m"] if r else None
+
+
+def count_alerts(path: str) -> int:
+    conn = connect(path)
+    n = conn.execute("SELECT COUNT(*) c FROM alerts").fetchone()["c"]
+    conn.close()
+    return int(n)
+
+
+def recent_alert_ts(path: str, limit: int = 300) -> list[str]:
+    conn = connect(path)
+    rows = conn.execute("SELECT ts FROM alerts ORDER BY ts DESC LIMIT ?", (limit,)).fetchall()
+    conn.close()
+    return [r["ts"] for r in rows]
+
+
 def fetch_incident(path: str, inc_id: str) -> dict | None:
     conn = connect(path)
     r = conn.execute("SELECT * FROM incidents WHERE id=?", (inc_id,)).fetchone()

@@ -21,9 +21,11 @@ def score_incident(direct_services: list[tuple[str, list[str]]],
         # direct if path len 3 (ep->app->svc), else dependency
         exposure = exp_direct if len(path) <= 3 else exp_dep
         risk = w * (1 - readiness) * exposure * confidence
+        fb = (sdef.get("fallback", {}) or {})
         results.append({"service": svc, "tier": tier,
                         "exposure": exposure, "risk": round(risk, 3),
-                        "path": path, "fallback": (sdef.get("fallback", {}) or {}).get("name", ""),
+                        "path": path, "fallback": fb.get("name", ""),
+                        "fallback_readiness": readiness, "activate_min": fb.get("activate_min", 30),
                         "max_downtime_min": sdef.get("max_downtime_min", 60),
                         "potential": False})
         seen.add(svc)
@@ -35,9 +37,11 @@ def score_incident(direct_services: list[tuple[str, list[str]]],
         w = float((tiers.get(tier, {}) or {}).get("weight", 0.3))
         readiness = float(((sdef.get("fallback", {}) or {}).get("readiness", 0.5)))
         risk = w * (1 - readiness) * exp_lat * confidence
+        fb = (sdef.get("fallback", {}) or {})
         results.append({"service": svc, "tier": tier,
                         "exposure": exp_lat, "risk": round(risk, 3),
-                        "path": [], "fallback": (sdef.get("fallback", {}) or {}).get("name", ""),
+                        "path": [], "fallback": fb.get("name", ""),
+                        "fallback_readiness": readiness, "activate_min": fb.get("activate_min", 30),
                         "max_downtime_min": sdef.get("max_downtime_min", 60),
                         "potential": True})
     if not results:

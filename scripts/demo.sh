@@ -1,6 +1,7 @@
 #!/bin/bash
-# 5-minute panel demo: D (quiet) -> A (radiology) -> B (pharmacy T1) -> C (pump) -> audit tamper
-# Usage: SCENARIO=a bash scripts/demo.sh   (a|b|c|d|full)
+# Panel demo: D (quiet) -> A (radiology) -> B (pharmacy T1) -> C (pump) -> audit tamper,
+# or: ambient + E campaign (connected kill chain in a living hospital)
+# Usage: SCENARIO=e bash scripts/demo.sh   (a|b|c|d|e|full|campaign|ambient)
 set -e
 BASE="${BASE:-http://localhost:8000}"
 SC="${SCENARIO:-full}"
@@ -28,9 +29,20 @@ case "$SC" in
     echo; echo ">>> C: pump alert, passive-only. Verify audit:"
     curl -s "$BASE/api/audit/verify"; echo
     ;;
+  campaign)
+    echo "=== ambient first: wake the hospital ==="
+    curl -s -X POST "$BASE/api/sim/background?minutes=15&seed=7"; echo
+    run_scenario e_hospital_campaign
+    echo; echo ">>> E: 7 incidents — pharmacy + pump T1 on top. Verify audit:"
+    curl -s "$BASE/api/audit/verify"; echo
+    ;;
+  ambient)
+    curl -s -X POST "$BASE/api/sim/background?minutes=${MINUTES:-15}&seed=7"; echo
+    ;;
   a) run_scenario a_radiology ;;
   b) run_scenario b_pharmacy ;;
   c) run_scenario c_infusion_pump ;;
   d) run_scenario d_benign_patching ;;
+  e) run_scenario e_hospital_campaign ;;
   *) run_scenario "$SC" ;;
 esac

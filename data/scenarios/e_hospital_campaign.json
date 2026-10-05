@@ -1,0 +1,859 @@
+[
+ {
+  "ts": "2026-10-10T02:10:00Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "nurse_a",
+  "details": {
+   "result": "success",
+   "logon_type": "local"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:10:40Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "device",
+  "details": {
+   "src_ip": "10.10.40.4",
+   "dst_ip": "10.10.20.5",
+   "dst_port": 8443,
+   "proto": "tcp",
+   "bytes": 640
+  }
+ },
+ {
+  "ts": "2026-10-10T02:11:30Z",
+  "endpoint_id": "pacs-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "rad_tech",
+  "details": {
+   "path": "/pacs/studies/1.2.840.113619.dcm",
+   "bytes": 2100000
+  }
+ },
+ {
+  "ts": "2026-10-10T02:12:30Z",
+  "endpoint_id": "monitor-icu-02",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "device",
+  "details": {
+   "src_ip": "10.10.41.7",
+   "dst_ip": "10.10.20.5",
+   "dst_port": 8443,
+   "proto": "tcp",
+   "bytes": 900
+  }
+ },
+ {
+  "ts": "2026-10-10T02:14:00Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: password spraying the vendor VPN account"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:14:30Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: password spraying the vendor VPN account"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:15:00Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: password spraying the vendor VPN account"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:15:30Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: password spraying the vendor VPN account"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:16:00Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: password spraying the vendor VPN account"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:16:30Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: password spraying the vendor VPN account"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:17:10Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9",
+   "note": "P1: success \u2014 attacker holds a valid vendor session"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:00Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_000.pdf",
+   "new_path": "C:/hipaa/docs/chart_000.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:08Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_001.pdf",
+   "new_path": "C:/hipaa/docs/chart_001.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:16Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_002.pdf",
+   "new_path": "C:/hipaa/docs/chart_002.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:24Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_003.pdf",
+   "new_path": "C:/hipaa/docs/chart_003.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:32Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_004.pdf",
+   "new_path": "C:/hipaa/docs/chart_004.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:40Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_005.pdf",
+   "new_path": "C:/hipaa/docs/chart_005.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:48Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_006.pdf",
+   "new_path": "C:/hipaa/docs/chart_006.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:21:56Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_007.pdf",
+   "new_path": "C:/hipaa/docs/chart_007.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:04Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_008.pdf",
+   "new_path": "C:/hipaa/docs/chart_008.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:12Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_009.pdf",
+   "new_path": "C:/hipaa/docs/chart_009.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:20Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_010.pdf",
+   "new_path": "C:/hipaa/docs/chart_010.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:28Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_011.pdf",
+   "new_path": "C:/hipaa/docs/chart_011.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:36Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_012.pdf",
+   "new_path": "C:/hipaa/docs/chart_012.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:44Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_013.pdf",
+   "new_path": "C:/hipaa/docs/chart_013.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:22:52Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_014.pdf",
+   "new_path": "C:/hipaa/docs/chart_014.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:23:00Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_015.pdf",
+   "new_path": "C:/hipaa/docs/chart_015.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:23:08Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_016.pdf",
+   "new_path": "C:/hipaa/docs/chart_016.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:23:16Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "nurse_a",
+  "details": {
+   "old_path": "C:/hipaa/docs/chart_017.pdf",
+   "new_path": "C:/hipaa/docs/chart_017.pdf.locked",
+   "note": "P2: affiliate payload encrypting the nursing share"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:23:40Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "nurse_a",
+  "details": {
+   "path": "/shares/finance/__canary_do_not_touch.txt",
+   "bytes": 12,
+   "note": "P2: canary tripped mid-encryption"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:24:10Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "process_start",
+  "user": "nurse_a",
+  "details": {
+   "process": "powershell.exe",
+   "parent": "winword.exe",
+   "commandline": "powershell -enc aQBmACgAdgBzAHMAYQBkAG0AaQBuACAAZABlAGwAZQB0AGUAIABzAGgAYQBkAG8AdwBzACAALwBhAGwAbAAgAC8AcQB1AGkAZQB0ACkA",
+   "note": "P2: killing recovery before moving on"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:24:20Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "process_start",
+  "user": "nurse_a",
+  "details": {
+   "process": "cmd.exe",
+   "parent": "powershell.exe",
+   "commandline": "vssadmin delete shadows /all /quiet"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:33:00Z",
+  "endpoint_id": "filesrv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "10.10.6.12",
+   "note": "P3: first hop \u2014 file server from an unknown internal host"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:34:00Z",
+  "endpoint_id": "ad-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "success",
+   "logon_type": "SMB",
+   "src_ip": "10.10.6.12",
+   "note": "P3: touching domain services (privilege escalation staging)"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:35:00Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "success",
+   "logon_type": "SMB",
+   "src_ip": "10.10.6.99",
+   "note": "P3: crown jewels \u2014 pharmacy server over SMB, unknown source"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:00Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_000.db",
+   "new_path": "D:/pharma/dispense_000.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:07Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_001.db",
+   "new_path": "D:/pharma/dispense_001.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:14Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_002.db",
+   "new_path": "D:/pharma/dispense_002.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:21Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_003.db",
+   "new_path": "D:/pharma/dispense_003.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:28Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_004.db",
+   "new_path": "D:/pharma/dispense_004.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:35Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_005.db",
+   "new_path": "D:/pharma/dispense_005.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:42Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_006.db",
+   "new_path": "D:/pharma/dispense_006.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:49Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_007.db",
+   "new_path": "D:/pharma/dispense_007.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:36:56Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_008.db",
+   "new_path": "D:/pharma/dispense_008.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:03Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_009.db",
+   "new_path": "D:/pharma/dispense_009.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:10Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_010.db",
+   "new_path": "D:/pharma/dispense_010.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:17Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_011.db",
+   "new_path": "D:/pharma/dispense_011.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:24Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_012.db",
+   "new_path": "D:/pharma/dispense_012.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:31Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_013.db",
+   "new_path": "D:/pharma/dispense_013.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:38Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_014.db",
+   "new_path": "D:/pharma/dispense_014.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:45Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_015.db",
+   "new_path": "D:/pharma/dispense_015.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:52Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_016.db",
+   "new_path": "D:/pharma/dispense_016.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:37:59Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_017.db",
+   "new_path": "D:/pharma/dispense_017.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:38:06Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_018.db",
+   "new_path": "D:/pharma/dispense_018.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:38:13Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/dispense_019.db",
+   "new_path": "D:/pharma/dispense_019.db.locked",
+   "note": "P4: same affiliate playbook, Tier-1 target"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:38:40Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "pharm_admin",
+  "details": {
+   "path": "C:\\canary\\patient_list_decoy.xlsx",
+   "bytes": 8
+  }
+ },
+ {
+  "ts": "2026-10-10T02:39:10Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "process_start",
+  "user": "pharm_admin",
+  "details": {
+   "process": "powershell.exe",
+   "parent": "services.exe",
+   "commandline": "wbadmin delete catalog -quiet"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:47:00Z",
+  "endpoint_id": "cam-lobby-01",
+  "endpoint_class": "iot",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "device",
+  "details": {
+   "src_ip": "10.10.99.20",
+   "dst_ip": "10.10.40.4",
+   "dst_port": 445,
+   "proto": "tcp",
+   "bytes": 2100,
+   "note": "P5: camera starts scanning the clinical VLAN (pivot beachhead)"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:47:40Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "unknown",
+  "details": {
+   "src_ip": "10.10.40.4",
+   "dst_ip": "10.10.99.20",
+   "dst_port": 23,
+   "proto": "tcp",
+   "bytes": 1400,
+   "note": "P5: pump talking to something that is not its server"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:48:20Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "device_command",
+  "user": "unknown",
+  "details": {
+   "command": "dose_rate",
+   "param": "12.5ml/h",
+   "src_ip": "10.10.99.20",
+   "from": "10.10.99.20",
+   "note": "P5: rogue dose-rate command from the camera's subnet"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:49:00Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "device_command",
+  "user": "unknown",
+  "details": {
+   "command": "set_config",
+   "param": "rate_limit=off",
+   "src_ip": "10.10.99.20",
+   "from": "10.10.99.20",
+   "note": "P5: safety limits disabled \u2014 worst case for the panel"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:55:00Z",
+  "endpoint_id": "backup-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "backup_job",
+  "user": "backup_svc",
+  "details": {
+   "action": "delete_catalog",
+   "job": "nightly_full",
+   "gb": 0,
+   "note": "P6: affiliate burns the recovery path last"
+  }
+ },
+ {
+  "ts": "2026-10-10T02:57:00Z",
+  "endpoint_id": "vent-03",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "device",
+  "details": {
+   "src_ip": "10.10.40.9",
+   "dst_ip": "10.10.20.5",
+   "dst_port": 8443,
+   "proto": "tcp",
+   "bytes": 700
+  }
+ },
+ {
+  "ts": "2026-10-10T02:58:00Z",
+  "endpoint_id": "ehr-app-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "dr_chen",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "10.10.5.10"
+  }
+ }
+]

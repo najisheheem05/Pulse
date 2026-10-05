@@ -64,13 +64,18 @@ def lateral_reachable_services(g: nx.DiGraph, model: dict, endpoint_id: str) -> 
     return sorted(svcs)
 
 
-def graph_json(g: nx.DiGraph, highlight: dict[str, list[str]] | None = None) -> dict:
+def graph_json(g: nx.DiGraph, highlight: dict[str, list[str]] | None = None,
+               reach: list[tuple[str, str]] | None = None) -> dict:
+    """Graph JSON for Cytoscape. `highlight` maps incident->paths (hot nodes/edges).
+    `reach` lists (endpoint, service) lateral-reach pairs, rendered dashed amber."""
     highlight = highlight or {}
+    reach = reach or []
     nodes, edges = [], []
     hot: set[str] = set()
     for paths in highlight.values():
         for p in paths:
             hot.update(p)
+    reach_hot: set[tuple[str, str]] = set(reach) if hot else set()
     for n, attr in g.nodes(data=True):
         kind = attr.get("kind", "?")
         nodes.append({"id": n, "kind": kind,
@@ -78,6 +83,10 @@ def graph_json(g: nx.DiGraph, highlight: dict[str, list[str]] | None = None) -> 
                       "eclass": (attr.get("class") if kind == "endpoint" else None),
                       "hot": n in hot})
     for u, v, attr in g.edges(data=True):
-        edges.append({"source": u, "target": v,
+        edges.append({"source": u, "target": v, "rel": attr.get("rel", "?"),
                       "hot": (u in hot and v in hot)})
+    for u, v in reach:
+        if g.has_node(u) and g.has_node(v):
+            edges.append({"source": u, "target": v, "rel": "reach",
+                          "hot": (u, v) in reach_hot})
     return {"nodes": nodes, "edges": edges}

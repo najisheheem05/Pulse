@@ -1,5 +1,12 @@
 # Panel Presentation Guide (5 minutes + Q&A)
 
+## Alternate 5-minute run (recommended): living hospital + campaign
+1. Press **+ ambient** — feed fills with shift logons, PACS reads, pump heartbeats; services green; **0 incidents**. *"This is the hospital at work."*
+2. Press **E campaign** — 64 events land in ~4 s. Watch the feed turn red phase by phase (purple `P1…P6` narration markers), incidents stack, pharmacy + pump take the top two slots.
+3. Click the pharmacy card → red path on the graph → *"One vendor password. Forty-eight minutes. Pharmacy, pumps, and backups."*
+4. Approve the isolation → tamper → verify FAIL. Close.
+(Narration per phase: `data/scenarios/e_hospital_campaign.md`.)
+
 ## Slide 1 — Problem (30 s)
 Hospitals rank alerts by **technical severity**. A ransomware burst on a radiology PC
 and on the pharmacy server look identical to the SOC — but one threatens
