@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="240" font-family="system-ui,sans-serif">
+<rect width="960" height="240" fill="#0b0f14" rx="12"/>
+<text x="20" y="30" fill="#e8edf2" font-size="15" font-weight="bold">Hospital Impact Defense — pipeline (all boxes live in this repo)</text>
+<g font-size="12" text-anchor="middle">
+<rect x="20" y="60" width="130" height="70" rx="8" fill="#141d26" stroke="#60a5fa"/>
+<text x="85" y="85" fill="#e8edf2" font-weight="bold">Simulator</text>
+<text x="85" y="102" fill="#8a99a6">synthetic JSON</text>
+<text x="85" y="117" fill="#8a99a6">A / B / C / D</text>
+<rect x="175" y="60" width="130" height="70" rx="8" fill="#141d26" stroke="#60a5fa"/>
+<text x="240" y="85" fill="#e8edf2" font-weight="bold">Normalizer</text>
+<text x="240" y="102" fill="#8a99a6">one schema</text>
+<text x="240" y="117" fill="#8a99a6">agent + passive</text>
+<rect x="330" y="60" width="140" height="70" rx="8" fill="#141d26" stroke="#ffb84d"/>
+<text x="400" y="85" fill="#e8edf2" font-weight="bold">Detection</text>
+<text x="400" y="102" fill="#8a99a6">R1 R2 R3 R5</text>
+<text x="400" y="117" fill="#8a99a6">R6 R9 R10</text>
+<rect x="495" y="60" width="130" height="70" rx="8" fill="#141d26" stroke="#c084fc"/>
+<text x="560" y="85" fill="#e8edf2" font-weight="bold">Correlator</text>
+<text x="560" y="102" fill="#8a99a6">noisy-OR</text>
+<text x="560" y="117" fill="#8a99a6">per-host window</text>
+<rect x="650" y="60" width="130" height="70" rx="8" fill="#141d26" stroke="#4ade80"/>
+<text x="715" y="85" fill="#e8edf2" font-weight="bold">Impact</text>
+<text x="715" y="102" fill="#8a99a6">graph → score</text>
+<text x="715" y="117" fill="#8a99a6">clinical rank</text>
+<rect x="805" y="60" width="135" height="70" rx="8" fill="#141d26" stroke="#ff5c5c"/>
+<text x="872" y="85" fill="#e8edf2" font-weight="bold">Response</text>
+<text x="872" y="102" fill="#8a99a6">approve → act</text>
+<text x="872" y="117" fill="#8a99a6">hash-chained</text>
+</g>
+<g stroke="#2d3d4a" stroke-width="2" marker-end="url(#a)">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#8a99a6"/></marker></defs>
+<line x1="150" y1="95" x2="172" y2="95"/><line x1="305" y1="95" x2="327" y2="95"/><line x1="470" y1="95" x2="492" y2="95"/><line x1="625" y1="95" x2="647" y2="95"/><line x1="780" y1="95" x2="802" y2="95"/>
+</g>
+<text x="20" y="160" fill="#8a99a6" font-size="12">Dashboard: ranked incidents (clinical score + deadline clock) · Cytoscape graph (attack path in red) · approval queue · audit verify badge — 1 s polling</text>
+<text x="20" y="185" fill="#8a99a6" font-size="12">Endpoints: workstations + servers (agent JSON) ····· pumps / monitors / vents / CT (passive flows) ····· cameras / printers (IoT)</text>
+<text x="20" y="210" fill="#8a99a6" font-size="12">Never auto-isolate medical devices · Tier-1 needs analyst approval + clinical notification · every decision hash-chained</text>
+</svg>

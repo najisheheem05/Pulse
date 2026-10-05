@@ -1,0 +1,395 @@
+[
+ {
+  "ts": "2026-10-10T10:40:00Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_000.dcm",
+   "new_path": "C:/images/img_000.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:03Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_001.dcm",
+   "new_path": "C:/images/img_001.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:06Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_002.dcm",
+   "new_path": "C:/images/img_002.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:09Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_003.dcm",
+   "new_path": "C:/images/img_003.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:12Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_004.dcm",
+   "new_path": "C:/images/img_004.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:15Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_005.dcm",
+   "new_path": "C:/images/img_005.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:18Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_006.dcm",
+   "new_path": "C:/images/img_006.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:21Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_007.dcm",
+   "new_path": "C:/images/img_007.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:24Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_008.dcm",
+   "new_path": "C:/images/img_008.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:27Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_009.dcm",
+   "new_path": "C:/images/img_009.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:30Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_010.dcm",
+   "new_path": "C:/images/img_010.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:33Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_011.dcm",
+   "new_path": "C:/images/img_011.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:36Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_012.dcm",
+   "new_path": "C:/images/img_012.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:39Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_013.dcm",
+   "new_path": "C:/images/img_013.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:42Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_014.dcm",
+   "new_path": "C:/images/img_014.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:45Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_015.dcm",
+   "new_path": "C:/images/img_015.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:48Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_016.dcm",
+   "new_path": "C:/images/img_016.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:51Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_017.dcm",
+   "new_path": "C:/images/img_017.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:54Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_018.dcm",
+   "new_path": "C:/images/img_018.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:57Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_019.dcm",
+   "new_path": "C:/images/img_019.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:00Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_020.dcm",
+   "new_path": "C:/images/img_020.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:03Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "rad_tech",
+  "details": {
+   "old_path": "C:/images/img_021.dcm",
+   "new_path": "C:/images/img_021.dcm.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:10Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "rad_tech",
+  "details": {
+   "path": "/shares/finance/__canary_do_not_touch.txt",
+   "bytes": 12
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:20Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "process_start",
+  "user": "rad_tech",
+  "details": {
+   "process": "cmd.exe",
+   "commandline": "vssadmin delete shadows /all /quiet",
+   "parent": "outlook.exe"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:30Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:50Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:10Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:30Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:50Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:43:10Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:43:40Z",
+  "endpoint_id": "rad-ws-02",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "10.10.99.50"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:44:00Z",
+  "endpoint_id": "pacs-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "rad_tech",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "10.10.6.44"
+  }
+ }
+]

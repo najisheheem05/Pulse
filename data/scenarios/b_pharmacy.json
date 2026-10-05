@@ -1,0 +1,395 @@
+[
+ {
+  "ts": "2026-10-10T10:40:00Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_000.db",
+   "new_path": "D:/pharma/order_000.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:03Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_001.db",
+   "new_path": "D:/pharma/order_001.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:06Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_002.db",
+   "new_path": "D:/pharma/order_002.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:09Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_003.db",
+   "new_path": "D:/pharma/order_003.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:12Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_004.db",
+   "new_path": "D:/pharma/order_004.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:15Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_005.db",
+   "new_path": "D:/pharma/order_005.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:18Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_006.db",
+   "new_path": "D:/pharma/order_006.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:21Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_007.db",
+   "new_path": "D:/pharma/order_007.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:24Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_008.db",
+   "new_path": "D:/pharma/order_008.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:27Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_009.db",
+   "new_path": "D:/pharma/order_009.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:30Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_010.db",
+   "new_path": "D:/pharma/order_010.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:33Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_011.db",
+   "new_path": "D:/pharma/order_011.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:36Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_012.db",
+   "new_path": "D:/pharma/order_012.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:39Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_013.db",
+   "new_path": "D:/pharma/order_013.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:42Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_014.db",
+   "new_path": "D:/pharma/order_014.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:45Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_015.db",
+   "new_path": "D:/pharma/order_015.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:48Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_016.db",
+   "new_path": "D:/pharma/order_016.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:51Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_017.db",
+   "new_path": "D:/pharma/order_017.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:54Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_018.db",
+   "new_path": "D:/pharma/order_018.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:57Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_019.db",
+   "new_path": "D:/pharma/order_019.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:00Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_020.db",
+   "new_path": "D:/pharma/order_020.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:03Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_rename",
+  "user": "pharm_admin",
+  "details": {
+   "old_path": "D:/pharma/order_021.db",
+   "new_path": "D:/pharma/order_021.db.locked"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:10Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "pharm_admin",
+  "details": {
+   "path": "C:\\canary\\patient_list_decoy.xlsx",
+   "bytes": 8
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:20Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "process_start",
+  "user": "pharm_admin",
+  "details": {
+   "process": "powershell.exe",
+   "commandline": "wbadmin delete catalog -quiet",
+   "parent": "services.exe"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:30Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:45Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:00Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:15Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:30Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:45Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "fail",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:43:20Z",
+  "endpoint_id": "vpn-jump-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "203.0.113.9"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:44:00Z",
+  "endpoint_id": "pharm-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "vendor",
+  "details": {
+   "result": "success",
+   "logon_type": "SMB",
+   "src_ip": "10.10.6.99"
+  }
+ }
+]

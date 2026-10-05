@@ -1,0 +1,45 @@
+[
+ {
+  "ts": "2026-10-10T10:40:00Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "device",
+  "details": {
+   "src_ip": "10.10.99.99",
+   "dst_ip": "10.10.40.4",
+   "dst_port": 23,
+   "proto": "tcp",
+   "bytes": 1200
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:10Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "device_command",
+  "user": "unknown",
+  "details": {
+   "command": "dose_rate",
+   "param": "12.5ml/h",
+   "src_ip": "10.10.99.99",
+   "from": "10.10.99.99"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:20Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "device_command",
+  "user": "unknown",
+  "details": {
+   "command": "set_config",
+   "param": "rate_limit=off",
+   "src_ip": "10.10.99.99",
+   "from": "10.10.99.99"
+  }
+ }
+]

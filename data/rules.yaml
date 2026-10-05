@@ -1,0 +1,15 @@
+# Rule thresholds + weights. All tuning in one place for judges.
+correlation_window_min: 30
+rules:
+  R1: {name: "Mass rename/modify burst", threshold_count: 15, window_sec: 120, weight: 0.60, severity: high, attack: "T1486 Inhibit System Recovery / Data Encrypted for Impact"}
+  R2: {name: "Canary file touched", weight: 0.80, severity: critical, attack: "T1486", canaries: ["/shares/finance/__canary_do_not_touch.txt", "C:\\canary\\patient_list_decoy.xlsx", "/pacs/__canary.dcm"]}
+  R3: {name: "Recovery inhibition", weight: 0.70, severity: high, attack: "T1490 Inhibit System Recovery", patterns: ["vssadmin", "wbadmin", "bcdedit", "del.*backup", "rm.*backup", "vss.*delete", "shadow.*delete", "wipe.*catalog"]}
+  R4: {name: "Suspicious script launch", weight: 0.45, severity: medium, attack: "T1059.001 PowerShell", note: "stretch - encoded powershell from office/browser"}
+  R5: {name: "Brute force then success", fail_threshold: 5, window_min: 10, weight: 0.55, severity: medium, attack: "T1110 Brute Force / T1078 Valid Accounts"}
+  R6: {name: "New RDP/SMB source", weight: 0.60, severity: high, attack: "T1021.001 Remote Desktop Protocol / T1021.002 SMB", allow_lists: {ehr-app-01: ["10.10.5.10", "10.10.5.11"], pacs-01: ["10.10.5.20"], pharm-srv-01: ["10.10.5.30"], ad-01: ["10.10.5.10"], filesrv-01: ["10.10.5.10"]}}
+  R7: {name: "Lateral burst", fanout: 4, window_min: 10, weight: 0.5, severity: high, attack: "T1021 Remote Services", note: stretch}
+  R8: {name: "Security tool tampering", weight: 0.5, severity: high, attack: "T1562.001 Impair Defenses", note: stretch}
+  R9: {name: "Device baseline deviation", weight: 0.65, severity: high, attack: "baseline", baselines: {pump-icu-04: [{dst: "10.10.20.5", port: 8443, proto: tcp}], monitor-icu-02: [{dst: "10.10.20.5", port: 8443, proto: tcp}], vent-03: [{dst: "10.10.20.5", port: 8443, proto: tcp}], ct-01: [{dst: "10.10.30.8", port: 104, proto: tcp}], cam-lobby-01: [{dst: "10.10.99.2", port: 554, proto: tcp}], printer-03: [{dst: "10.10.99.3", port: 9100, proto: tcp}]}}
+  R10: {name: "Unauthorized device command", weight: 0.85, severity: critical, attack: "T0855 Unauthorized Device Command (ICS)", allowed_sources: {pump-icu-04: ["10.10.20.5"], monitor-icu-02: ["10.10.20.5"], vent-03: ["10.10.20.5"], ct-01: ["10.10.30.8"]}, maintenance_window: {start: "02:00", end: "04:00"}}
+  R11: {name: "Cross-segment flow", weight: 0.5, severity: medium, attack: "lateral", note: stretch}
+  R12: {name: "Outbound volume spike", weight: 0.4, severity: medium, attack: "T1048 Exfiltration", note: stretch}

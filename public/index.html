@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hospital Impact Defense</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg:#0b0f14; --panel:#111820; --card:#141d26; --line:#1f2a36;
+  --fg:#e8edf2; --muted:#8a99a6; --red:#ff5c5c; --amber:#ffb84d; --green:#4ade80;
+  --blue:#60a5fa; --purple:#c084fc; --radius:8px; --mono:"JetBrains Mono","Fira Code",monospace;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,sans-serif}
+a{color:var(--blue)} code{font-family:var(--mono);background:#0d141a;padding:.1em .3em;border-radius:4px}
+h1{font-size:1.1rem;font-weight:600;margin:0} h2{font-size:.9rem;font-weight:600;margin:.5rem 0}
+header{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+header h1{display:flex;align-items:center;gap:.5rem} .badge{font-size:.7rem;padding:.15rem .4rem;border-radius:99px;background:var(--line);color:var(--muted)}
+main{display:grid;grid-template-columns:380px 1fr 360px;gap:1rem;padding:1rem;height:calc(100vh-52px);overflow:hidden}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.panel-header{padding:.5rem .75rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.panel-body{flex:1;overflow:auto;padding:.5rem}
+.incident{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.5rem;margin:.4rem 0;cursor:pointer;transition:outline .1s}
+.incident:hover{outline:1px solid var(--blue)} .incident.selected{outline:2px solid var(--blue)}
+.incident-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem}
+.incident-id{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.incident-score{font-weight:700;font-size:1.1rem}
+.incident-score.t1{color:var(--red)} .incident-score.t2{color:var(--amber)} .incident-score.t3{color:var(--green)}
+.incident-meta{font-size:.75rem;color:var(--muted);display:flex;gap:.5rem;flex-wrap:wrap}
+.incident-svc{font-size:.75rem;margin-top:.25rem;padding:.25rem;background:#0d141a;border-radius:4px}
+.incident-svc .tier{font-weight:600;padding:.1rem .3rem;border-radius:3px;font-size:.65rem}
+.incident-svc .tier-1{background:rgba(255,92,92,.2);color:var(--red)}
+.incident-svc .tier-2{background:rgba(255,184,77,.2);color:var(--amber)}
+.incident-svc .tier-3{background:rgba(74,222,128,.2);color:var(--green)}
+.incident-svc .potential{color:var(--purple);font-size:.7rem}
+.btn{padding:.35rem .6rem;border:none;border-radius:4px;font-size:.75rem;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--blue);color:#051018} .btn-danger{background:var(--red);color:#1a0505}
+.btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions-list{font-size:.75rem}
+.action-row{display:flex;gap:.4rem;align-items:center;padding:.3rem;background:var(--card);border:1px solid var(--line);border-radius:4px;margin:.3rem 0}
+.action-status{font-size:.7rem;padding:.1rem .35rem;border-radius:99px}
+.action-status.pending{background:rgba(255,184,77,.2);color:var(--amber)}
+.action-status.approved{background:rgba(74,222,128,.2);color:var(--green)}
+.action-status.denied{background:rgba(255,92,92,.2);color:var(--red)}
+.graph-container{height:100%;min-height:480px;display:flex;flex-direction:column}
+#cy{width:100%;height:100%;min-height:480px;flex:1;display:block}
+.explain{font-size:.8rem;line-height:1.5;color:var(--fg);white-space:pre-wrap}
+.clock{font-family:var(--mono);font-size:.8rem}
+.clock.warn{color:var(--amber)} .clock.danger{color:var(--red)}
+.verification{font-family:var(--mono);font-size:.75rem;padding:.5rem;background:var(--card);border:1px solid var(--line);border-radius:6px}
+.verification.ok{color:var(--green);border-color:rgba(74,222,128,.4)}
+.verification.fail{color:var(--red);border-color:rgba(255,92,92,.4)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏥 Hospital Impact Defense <span class="badge" id="statusBadge">LIVE</span></h1>
+  <div style="display:flex;gap:.5rem;align-items:center">
+    <span class="clock" id="clock"></span>
+    <button class="btn btn-ghost" onclick="refreshAll()">↻ Refresh</button>
+  </div>
+</header>
+<main>
+  <!-- Left: Ranked Incidents -->
+  <section class="panel">
+    <div class="panel-header"><h2>Incidents (Ranked by Clinical Impact)</h2><span class="badge" id="incCount">0</span></div>
+    <div class="panel-body" id="incList"></div>
+  </section>
+
+  <!-- Center: Graph -->
+  <section class="panel">
+    <div class="panel-header"><h2>Dependency Graph</h2><span class="badge" id="graphBadge">Cytoscape</span></div>
+    <div class="panel-body graph-container" id="cy"></div>
+  </section>
+
+  <!-- Right: Details + Approvals + Audit -->
+  <section class="panel" style="display:flex;flex-direction:column">
+    <div class="panel-header"><h2 id="detailTitle">Select an incident</h2></div>
+    <div class="panel-body" style="flex:1;display:flex;flex-direction:column">
+      <div class="explain" id="explainBox">Click an incident to see clinical impact path, fallback, and recommendation.</div>
+      <div style="margin-top:.5rem;border-top:1px solid var(--line);padding-top:.5rem">
+        <h3 style="font-size:.8rem;margin:.5rem 0">Approvals</h3>
+        <div id="actionsBox" class="actions-list"></div>
+      </div>
+      <div style="margin-top:.5rem;border-top:1px solid var(--line);padding-top:.5rem">
+        <h3 style="font-size:.8rem;margin:.5rem 0">Audit Chain</h3>
+        <div class="verification" id="auditBox">Loading…</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/static/vendor/htmx.min.js"></script>
+<script src="/static/vendor/cytoscape.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

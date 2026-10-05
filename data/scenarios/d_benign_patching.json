@@ -1,0 +1,343 @@
+[
+ {
+  "ts": "2026-10-10T10:40:00Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb0.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:05Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb1.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:10Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb2.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:15Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb3.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:20Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb4.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:25Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb5.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:30Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb6.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:35Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb7.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:40Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb8.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:45Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb9.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:50Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb10.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:40:55Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb11.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:00Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb12.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:05Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb13.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:10Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb14.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:15Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb15.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:20Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb16.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:25Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb17.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:30Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb18.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:35Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb19.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:40Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb20.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:45Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb21.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:50Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb22.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:41:55Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb23.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:00Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "file_modify",
+  "user": "it_admin",
+  "details": {
+   "path": "C:/windows/patch/kb24.dll",
+   "bytes": 5000
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:20Z",
+  "endpoint_id": "backup-srv-01",
+  "endpoint_class": "server",
+  "source": "agent",
+  "event_type": "backup_job",
+  "user": "backup_svc",
+  "details": {
+   "action": "completed",
+   "job": "nightly_full",
+   "gb": 120
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:30Z",
+  "endpoint_id": "nurse-ws-01",
+  "endpoint_class": "workstation",
+  "source": "agent",
+  "event_type": "logon",
+  "user": "it_admin",
+  "details": {
+   "result": "success",
+   "logon_type": "RDP",
+   "src_ip": "10.10.5.10"
+  }
+ },
+ {
+  "ts": "2026-10-10T10:42:40Z",
+  "endpoint_id": "pump-icu-04",
+  "endpoint_class": "device",
+  "source": "passive",
+  "event_type": "net_flow",
+  "user": "device",
+  "details": {
+   "src_ip": "10.10.40.4",
+   "dst_ip": "10.10.20.5",
+   "dst_port": 8443,
+   "proto": "tcp",
+   "bytes": 800
+  }
+ }
+]

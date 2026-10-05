@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="220" font-family="system-ui,sans-serif">
+<rect width="960" height="220" fill="#0b0f14" rx="12"/>
+<text x="20" y="28" fill="#e8edf2" font-size="15" font-weight="bold">5-minute panel demo — what to run, what the judges see</text>
+<g font-size="12" text-anchor="middle">
+<rect x="20" y="55" width="165" height="90" rx="8" fill="#0f2a1e" stroke="#4ade80"/>
+<text x="102" y="78" fill="#4ade80" font-weight="bold">0:00 — D benign</text>
+<text x="102" y="95" fill="#e8edf2">patching + backup</text>
+<text x="102" y="112" fill="#8a99a6">0 incidents ✓</text>
+<text x="102" y="128" fill="#8a99a6">honest FP handling</text>
+<rect x="200" y="55" width="165" height="90" rx="8" fill="#141d26" stroke="#ffb84d"/>
+<text x="282" y="78" fill="#ffb84d" font-weight="bold">0:30 — A radiology</text>
+<text x="282" y="95" fill="#e8edf2">risk 31 · T2</text>
+<text x="282" y="112" fill="#8a99a6">imaging_reads</text>
+<text x="282" y="128" fill="#8a99a6">Local DICOM viewer</text>
+<rect x="380" y="55" width="165" height="90" rx="8" fill="#2a0f0f" stroke="#ff5c5c"/>
+<text x="462" y="78" fill="#ff5c5c" font-weight="bold">1:45 — B pharmacy</text>
+<text x="462" y="95" fill="#e8edf2">risk 40.6 · T1 ⏰</text>
+<text x="462" y="112" fill="#8a99a6">medication admin</text>
+<text x="462" y="128" fill="#8a99a6">15-min deadline</text>
+<rect x="560" y="55" width="165" height="90" rx="8" fill="#1a0f2a" stroke="#c084fc"/>
+<text x="642" y="78" fill="#c084fc" font-weight="bold">3:00 — C pump</text>
+<text x="642" y="95" fill="#e8edf2">risk 38.8 · T1</text>
+<text x="642" y="112" fill="#8a99a6">passive-only</text>
+<text x="642" y="128" fill="#8a99a6">approval required</text>
+<rect x="740" y="55" width="200" height="90" rx="8" fill="#141d26" stroke="#60a5fa"/>
+<text x="840" y="78" fill="#60a5fa" font-weight="bold">4:00 — approve + tamper</text>
+<text x="840" y="95" fill="#e8edf2">approve isolate ✓</text>
+<text x="840" y="112" fill="#8a99a6">UPDATE audit…</text>
+<text x="840" y="128" fill="#ff5c5c">verify → FAIL ✗</text>
+</g>
+<text x="20" y="175" fill="#8a99a6" font-size="12">Punchline: identical R1+R2+R3 behavior scores 31 on radiology ws vs 40.6 on pharmacy server — rank follows patients, not malware.</text>
+<text x="20" y="198" fill="#8a99a6" font-size="12">Commands: make run  →  SCENARIO=full bash scripts/demo.sh  →  open http://localhost:8000</text>
+</svg>

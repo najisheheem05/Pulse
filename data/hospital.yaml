@@ -1,0 +1,61 @@
+# Hospital dependency model — hand-assigned assumptions, validate with clinicians.
+# Node types: endpoint -> application -> service (workflow). Segment gates lateral reach.
+
+endpoints:
+  rad-ws-02:      {class: workstation, segment: clinical,    apps: [pacs_viewer],        os: windows10}
+  nurse-ws-01:    {class: workstation, segment: clinical,    apps: [ehr_client],         os: windows11}
+  ehr-app-01:     {class: server,      segment: clinical,    apps: [ehr],                os: win_server2022}
+  pacs-01:        {class: server,      segment: clinical,    apps: [pacs],               os: win_server2019}
+  lis-01:         {class: server,      segment: clinical,    apps: [lis],                os: win_server2019}
+  pharm-srv-01:   {class: server,      segment: clinical,    apps: [pharmacy],           os: win_server2022}
+  ad-01:          {class: server,      segment: core,        apps: [directory],          os: win_server2022}
+  filesrv-01:     {class: server,      segment: core,        apps: [fileshare],          os: win_server2019}
+  vpn-jump-01:    {class: server,      segment: dmz,         apps: [remote_access],      os: win_server2022}
+  backup-srv-01:  {class: server,      segment: core,        apps: [backup],             os: win_server2022}
+  pump-icu-04:    {class: device,      segment: iot_clinical, apps: [infusion_mgmt],     os: legacy_embedded}
+  monitor-icu-02: {class: device,      segment: iot_clinical, apps: [monitoring],        os: legacy_embedded}
+  vent-03:        {class: device,      segment: iot_clinical, apps: [ventilation],       os: legacy_embedded}
+  ct-01:          {class: device,      segment: iot_clinical, apps: [imaging_modality],  os: legacy_embedded}
+  cam-lobby-01:   {class: iot,         segment: guest_iot,   apps: [surveillance],       os: embedded}
+  printer-03:     {class: iot,         segment: guest_iot,   apps: [printing],          os: embedded}
+
+applications:
+  ehr_client:      {serves: [medication_administration, patient_scheduling]}
+  ehr:             {serves: [medication_administration, patient_scheduling]}
+  pacs_viewer:     {serves: [imaging_reads]}
+  pacs:            {serves: [imaging_reads]}
+  lis:             {serves: [medication_administration]}
+  pharmacy:        {serves: [medication_administration]}
+  directory:       {serves: [medication_administration, imaging_reads, patient_scheduling]}
+  fileshare:       {serves: [patient_scheduling]}
+  remote_access:   {serves: [medication_administration, imaging_reads, patient_scheduling]}
+  backup:          {serves: [medication_administration, imaging_reads, patient_scheduling]}
+  infusion_mgmt:   {serves: [medication_administration]}
+  monitoring:      {serves: [medication_administration]}
+  ventilation:     {serves: [medication_administration]}
+  imaging_modality: {serves: [imaging_reads]}
+  surveillance:    {serves: []}
+  printing:        {serves: []}
+
+services:
+  medication_administration: {tier: 1, max_downtime_min: 15,  fallback: {name: "Paper MAR", readiness: 0.6, activate_min: 20}}
+  imaging_reads:             {tier: 2, max_downtime_min: 120, fallback: {name: "Local DICOM viewer", readiness: 0.5, activate_min: 30}}
+  patient_scheduling:        {tier: 3, max_downtime_min: 480, fallback: {name: "Phone booking", readiness: 0.9, activate_min: 10}}
+
+# lateral reachability between segments (attacker pivot potential)
+segments:
+  clinical:     {reaches: [clinical, core, iot_clinical]}
+  core:         {reaches: [clinical, core]}
+  dmz:          {reaches: [core, clinical]}
+  iot_clinical: {reaches: [iot_clinical]}
+  guest_iot:    {reaches: [guest_iot, clinical]}
+
+tiers:
+  1: {weight: 1.0, label: "life-critical"}
+  2: {weight: 0.6, label: "urgent"}
+  3: {weight: 0.3, label: "deferrable"}
+
+scoring:
+  exposure_direct: 1.0
+  exposure_dependency: 0.6
+  exposure_lateral: 0.3
