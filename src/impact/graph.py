@@ -72,8 +72,10 @@ def graph_json(g: nx.DiGraph, highlight: dict[str, list[str]] | None = None) -> 
         for p in paths:
             hot.update(p)
     for n, attr in g.nodes(data=True):
-        nodes.append({"id": n, "kind": attr.get("kind", "?"),
-                      "tier": (attr.get("tier") if attr.get("kind") == "service" else None),
+        kind = attr.get("kind", "?")
+        nodes.append({"id": n, "kind": kind,
+                      "tier": (attr.get("tier") if kind == "service" else None),
+                      "eclass": (attr.get("class") if kind == "endpoint" else None),
                       "hot": n in hot})
     for u, v, attr in g.edges(data=True):
         edges.append({"source": u, "target": v,

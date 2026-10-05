@@ -112,18 +112,42 @@ async function loadGraph(highlightId) {
 function initCytoscape(data) {
   cy = cytoscape({
     container: document.getElementById("cy"),
-    elements: data.nodes.map(n=>({data:{id:n.id,label:n.id,kind:n.kind,tier:n.tier,hot:n.hot}}))
-      .concat(data.edges.map(e=>({data:{source:e.source,target:e.target,hot:e.hot}}))),
+    elements: data.nodes.map(n=>({data:{id:n.id,label:n.id,kind:n.kind,tier:n.tier,eclass:n.eclass,hot:n.hot?1:0}}))
+      .concat(data.edges.map(e=>({data:{source:e.source,target:e.target,hot:e.hot?1:0}}))),
     style: [
-      {selector:"node", style:{"label":"data(id)","font-size":9,"text-valign":"bottom","text-halign":"center","background-color":"#1f2a36","border-width":1,"border-color":"#2d3d4a","width":28,"height":28}},
-      {selector:"node[kind='service']", style:{"background-color":"#0f2a1e","border-color":"#4ade80","shape":"rectangle","width":40,"height":22}},
-      {selector:"node[hot]", style:{"background-color":"#ff5c5c","border-color":"#ff9999","border-width":2,"z-index":10}},
-      {selector:"edge", style:{"width":1,"line-color":"#2d3d4a","target-arrow-shape":"triangle","target-arrow-color":"#2d3d4a","curve-style":"bezier"}},
-      {selector:"edge[hot]", style:{"line-color":"#ff5c5c","target-arrow-color":"#ff5c5c","width":2}}
+      // base: light label with dark halo so text reads on the dark theme
+      {selector:"node", style:{"label":"data(label)","font-size":11,"color":"#e8edf2",
+        "font-weight":400,"text-valign":"bottom","text-halign":"center","text-margin-y":7,
+        "text-outline-width":2,"text-outline-color":"#0b0f14","text-outline-opacity":0.9,
+        "background-color":"#1f2a36","border-width":2,"border-color":"#3b4c5e",
+        "width":30,"height":30,"z-index":1}},
+      // workstations: blue ellipse
+      {selector:"node[eclass = 'workstation']", style:{"shape":"ellipse","background-color":"#16283a","border-color":"#60a5fa"}},
+      // servers: blue rounded rect, slightly larger
+      {selector:"node[eclass = 'server']", style:{"shape":"round-rectangle","background-color":"#1a2440","border-color":"#60a5fa","width":38,"height":28}},
+      // medical devices: purple diamond
+      {selector:"node[eclass = 'device']", style:{"shape":"diamond","background-color":"#241536","border-color":"#c084fc","width":34,"height":34}},
+      // building IoT: teal triangle
+      {selector:"node[eclass = 'iot']", style:{"shape":"triangle","background-color":"#0f2b28","border-color":"#2dd4bf","width":32,"height":32}},
+      // applications: violet round rect
+      {selector:"node[kind = 'application']", style:{"shape":"round-rectangle","background-color":"#1c1830","border-color":"#a78bfa","width":36,"height":24,"font-size":10,"color":"#d8ccff"}},
+      // services: tier-colored, bold labels
+      {selector:"node[kind = 'service']", style:{"shape":"round-rectangle","width":64,"height":30,"font-size":12,"font-weight":700}},
+      {selector:"node[tier = 1]", style:{"background-color":"#2a1215","border-color":"#ff5c5c","color":"#ffc9c9"}},
+      {selector:"node[tier = 2]", style:{"background-color":"#2a2111","border-color":"#ffb84d","color":"#ffe1ae"}},
+      {selector:"node[tier = 3]", style:{"background-color":"#0f2a1e","border-color":"#4ade80","color":"#b8f4cd"}},
+      // attack path: red glow + white bold labels, above everything
+      {selector:"node[hot = 1]", style:{"border-color":"#ff5c5c","border-width":3,"color":"#ffffff",
+        "font-weight":700,"shadow-blur":14,"shadow-color":"#ff5c5c","shadow-opacity":0.8,"z-index":10}},
+      {selector:"edge", style:{"width":1.5,"line-color":"#3b4c5e","target-arrow-shape":"triangle",
+        "target-arrow-color":"#3b4c5e","target-arrow-fill":"filled","arrow-scale":1.1,"curve-style":"bezier","opacity":0.85}},
+      {selector:"edge[hot = 1]", style:{"line-color":"#ff5c5c","target-arrow-color":"#ff5c5c",
+        "width":3,"opacity":1,"shadow-blur":8,"shadow-color":"#ff5c5c","shadow-opacity":0.7}}
     ],
-    layout: {name:"breadthfirst", directed:true, padding:12, spacingFactor:1.15,
-             circle:false, grid:false, avoidOverlap:true, animate:false},
-    minZoom:0.3, maxZoom:2, zoomingEnabled:true, userZoomingEnabled:true, panningEnabled:true
+    layout: {name:"breadthfirst", directed:true, padding:14, spacingFactor:1.3,
+             circle:false, grid:false, avoidOverlap:true, maximal:true, animate:false},
+    minZoom:0.3, maxZoom:2.5, zoomingEnabled:true, userZoomingEnabled:true, panningEnabled:true,
+    wheelSensitivity:0.3
   });
   cy.on("tap", "node", e => {
     // only incident endpoints are selectable — map node -> incident by endpoint_id
@@ -134,22 +158,14 @@ function initCytoscape(data) {
 }
 
 function applyGraphStyle(data) {
+  // visuals live in the stylesheet (kind/tier/hot selectors) — here we only flip data flags
   cy.nodes().forEach(n => {
     const match = data.nodes.find(d => d.id === n.id());
-    if (match) {
-      n.data("hot", match.hot);
-      n.style("background-color", match.hot ? "#ff5c5c" : (match.kind==="service"?"#0f2a1e":"#1f2a36"));
-      n.style("border-color", match.hot ? "#ff9999" : (match.kind==="service"?"#4ade80":"#2d3d4a"));
-    }
+    if (match) n.data("hot", match.hot ? 1 : 0);
   });
   cy.edges().forEach(e => {
     const match = data.edges.find(d => d.source === e.source().id() && d.target === e.target().id());
-    if (match) {
-      e.data("hot", match.hot);
-      e.style("line-color", match.hot ? "#ff5c5c" : "#2d3d4a");
-      e.style("target-arrow-color", match.hot ? "#ff5c5c" : "#2d3d4a");
-      e.style("width", match.hot ? 2 : 1);
-    }
+    if (match) e.data("hot", match.hot ? 1 : 0);
   });
 }
 

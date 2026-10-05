@@ -43,7 +43,8 @@ main{display:grid;grid-template-columns:380px 1fr 360px;gap:1rem;padding:1rem;he
 .action-status.approved{background:rgba(74,222,128,.2);color:var(--green)}
 .action-status.denied{background:rgba(255,92,92,.2);color:var(--red)}
 .graph-container{height:100%;min-height:480px;display:flex;flex-direction:column}
-#cy{width:100%;height:100%;min-height:480px;flex:1;display:block}
+#cy{width:100%;height:100%;min-height:480px;flex:1;display:block;border-radius:6px;
+background:radial-gradient(ellipse at 50% 40%, #131c27 0%, #0b0f14 75%)}
 .explain{font-size:.8rem;line-height:1.5;color:var(--fg);white-space:pre-wrap}
 .clock{font-family:var(--mono);font-size:.8rem}
 .clock.warn{color:var(--amber)} .clock.danger{color:var(--red)}
@@ -69,7 +70,7 @@ main{display:grid;grid-template-columns:380px 1fr 360px;gap:1rem;padding:1rem;he
 
   <!-- Center: Graph -->
   <section class="panel">
-    <div class="panel-header"><h2>Dependency Graph</h2><span class="badge" id="graphBadge">Cytoscape</span></div>
+    <div class="panel-header"><h2>Dependency Graph</h2><span class="badge" id="graphBadge" title="blue ellipse/rect = workstation/server &#10;purple diamond = medical device &#10;teal triangle = building IoT &#10;violet = application &#10;red glow = live attack path">⬤ ws/srv ⬥ device ▲ iot ▬ app ● path</span></div>
     <div class="panel-body graph-container" id="cy"></div>
   </section>
 

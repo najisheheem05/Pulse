@@ -90,12 +90,16 @@ curl localhost:8000/api/audit/verify  # {"ok":false,"tampered_seq":1}
 ## Make Targets
 
 ```bash
-make run        # uvicorn src.main:app --reload
-make demo       # python -m src.simulator.emitter (use SCENARIO= env)
-make test       # pytest -q
-make vendor     # download htmx + cytoscape locally (offline fallback)
-make clean      # remove hospital.db + __pycache__
+make run        # API + dashboard on :8000 (needs server first for everything below)
+make demo SCENARIO=a  # a|b|c|d|full (default full = D→A→B→C with resets)
+make test       # pytest -q (13 tests)
+make reset      # wipe all state via POST /api/sim/reset
+make vendor     # re-download htmx + cytoscape into public/vendor/
+make clean      # delete hospital.db + __pycache__
 ```
+
+Full command reference — what each command does, emitter flags, curl recipes,
+tamper demo, troubleshooting: **`docs/runbook.md`**.
 
 ## Project Structure
 

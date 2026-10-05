@@ -134,6 +134,27 @@
 
 Proven: old name throws `No such layout 'dagre'`; new config renders. 13/13 tests still green.
 
+---
+
+## Graph restyle + runbook (panel polish)
+
+**Graph readability** — labels were 9 px default-dark on a dark theme (near-invisible);
+all nodes one shape/color, no legend, hot path barely distinct:
+- Light labels everywhere: 11–12 px `#e8edf2` with dark halo (`text-outline`), bold white on hot nodes
+- Shape/color language: blue ellipse = workstation, blue round-rect = server,
+  purple diamond = medical device, teal triangle = building IoT, violet = application,
+  services tier-tinted (T1 red / T2 amber / T3 green) with bold labels
+- Attack path: red glow (`shadow-blur`), white bold labels, thick red edges; legend in panel header
+- `applyGraphStyle` simplified to data-flag flips (stylesheet owns all visuals — no inline overrides to drift)
+- `/api/graph` now emits `eclass` (endpoint class) per node; verified live: 2 ws / 8 srv / 4 dev / 2 iot / 16 apps all match selectors headless, positions finite
+- Graph canvas gets a subtle radial backdrop
+- Footgun noted: `pkill -f "uvicorn src.main"` matches your own shell — server had to be restarted after the `graph.py` change (no `--reload` on the demo server); DB survived, scenario B intact
+
+**Runbook** — new `docs/runbook.md` + README pointer: every `make` target explained
+(run/test/demo/reset/clean/vendor/sim), emitter flags + expected outcome per scenario,
+curl recipes for incidents/detail/graph/approve/audit, tamper demo, `make_visuals.py`,
+troubleshooting table (PYTHONPATH, connection refused, blank graph, port busy).
+
 ## Visuals added for panel
 - `docs/architecture.svg`, `docs/demo_flow.svg` (hand-written, dark theme)
 - `docs/screenshots/scoring_comparison.png`, `topology.png`, `noisy_or.png` via `scripts/make_visuals.py`
