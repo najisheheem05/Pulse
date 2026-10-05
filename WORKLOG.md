@@ -249,6 +249,10 @@ Three stacked faults, found via headless Chromium console capture:
   badge+name on one grid row, single-line ellipsis desc, short labels
   (full names in hover title), trimmed note, scroll fallback on the panel.
   Screenshot-verified fitting with zero console errors.
+- README rewritten in full: problem statement, features, both demo flows with
+  measured results table, architecture table, endpoint classes, rule thresholds,
+  worked scoring example, approvals/audit semantics, 15-route API table, updated
+  structure/config/testing/docs-index sections.
 - UI features doc: new `docs/ui_features.md` — every control in the PULSE console
   (top bar → capbar → queue → graph → ledger → modal → feed → analytics →
   console → audit drawer → toasts) with how-to-use + what-happens; complements
