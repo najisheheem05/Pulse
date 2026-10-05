@@ -1217,6 +1217,22 @@
         }
       }
     </style>
+    <style>
+      /* Operator overrides: 5 scenarios + 3 console buttons must fit the 218px
+         footer row (reference had 4 + 2). Compact + scroll fallback. */
+      #strip > section:last-child { overflow-y: auto; min-height: 0; }
+      #consoleScen { padding: 5px 6px; gap: 4px; }
+      .scn { padding: 4px 7px; display: grid; grid-template-columns: 14px 1fr;
+        column-gap: 6px; align-items: center; min-width: 0; }
+      .scn .sl { font-size: 13px; line-height: 1.2; grid-row: 1; grid-column: 1; }
+      .scn .sn { margin-top: 0; white-space: nowrap; overflow: hidden;
+        text-overflow: ellipsis; grid-row: 1; grid-column: 2; }
+      .scn .sd { margin-top: 1px; white-space: nowrap; overflow: hidden;
+        text-overflow: ellipsis; grid-row: 2; grid-column: 1 / -1; }
+      #consoleBtns { flex-wrap: wrap; row-gap: 4px; padding-bottom: 4px; }
+      #consoleBtns .btn { padding: 5px 9px; }
+      #consoleNote { line-height: 1.4; padding-bottom: 5px; }
+    </style>
   </head>
   <body>
     <header id="topbar">
@@ -1354,8 +1370,7 @@
           <button class="btn" id="btnReset">RESET</button>
         </div>
         <div id="consoleNote">
-          Synthetic telemetry only — no real malware is executed anywhere.
-          E runs the connected kill-chain; AMBIENT wakes the hospital with normal traffic.
+          Synthetic telemetry only — no real malware. E = full kill chain; AMBIENT = normal traffic.
         </div>
       </section>
     </footer>

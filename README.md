@@ -142,7 +142,8 @@ ATT&CK progression, propagation steps, service cards with feasibility tags,
 signals, two-click human approval modal) · telemetry feed · analytics
 (alert-rate, severity≠impact scatter, posture) · demo console (A/B/C/D/**E**,
 ambient, guided, reset) · audit drawer with one-click verify + tamper demo.
-Field-by-field meaning of everything on screen: **`docs/site_outputs.md`**.
+Field-by-field meaning of everything on screen: **`docs/site_outputs.md`**;
+what every button and control does: **`docs/ui_features.md`**.
 
 ## Visuals (for the panel)
 

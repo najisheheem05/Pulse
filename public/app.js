@@ -53,15 +53,15 @@ const SC = { running: null, timers: [], captionTimer: null };
 
 /* ---------------- scenarios (console) ---------------- */
 const SCEN = {
-  D: { id: "D", api: "d_benign_patching", name: "BENIGN PATCHING", desc: "routine change window · should stay quiet", dur: 6,
+  D: { id: "D", api: "d_benign_patching", name: "BENIGN PATCHING", short: "BENIGN", desc: "should stay quiet", dur: 6,
     caps: ["02:00 — routine patching and the nightly backup job. High volume, low signal.", "No incident. Volume is not a signature — extension changes, canaries and recovery tampering are."] },
-  A: { id: "A", api: "a_radiology", name: "RADIOLOGY RANSOMWARE", desc: "rad-ws-02 → PACS · Tier 2", dur: 8,
+  A: { id: "A", api: "a_radiology", name: "RADIOLOGY RANSOMWARE", short: "RADIOLOGY", desc: "rad-ws-02 · Tier 2", dur: 8,
     caps: ["Phishing payload detonates on the radiology reading station. Watch the queue, not the console.", "R1+R2+R3: encryption pattern with recovery inhibition — imaging reads exposed through PACS."] },
-  B: { id: "B", api: "b_pharmacy", name: "PHARMACY RANSOMWARE", desc: "pharm-srv-01 · Tier 1", dur: 8,
+  B: { id: "B", api: "b_pharmacy", name: "PHARMACY RANSOMWARE", short: "PHARMACY", desc: "pharm-srv-01 · Tier 1", dur: 8,
     caps: ["Same ransomware pattern as A — different host. Five RDP failures, then success from an unknown source.", "Medication administration is Tier 1 with a 15-minute budget. Paper MAR cannot beat the clock."] },
-  C: { id: "C", api: "c_infusion_pump", name: "ROGUE PUMP COMMAND", desc: "infusion pump · passive telemetry", dur: 6,
+  C: { id: "C", api: "c_infusion_pump", name: "ROGUE PUMP COMMAND", short: "ROGUE PUMP", desc: "pump-icu-04 · passive", dur: 6,
     caps: ["Passive telemetry only — pumps cannot run agents. A drug-library push from an address that never spoke to it.", "Policy: never touch the device. Approve the segmentation change in the ledger."] },
-  E: { id: "E", api: "e_hospital_campaign", name: "AFTER-HOURS CAMPAIGN", desc: "vendor VPN → nurse WS → pharmacy + pump → backup · 64 events", dur: 14,
+  E: { id: "E", api: "e_hospital_campaign", name: "AFTER-HOURS CAMPAIGN", short: "CAMPAIGN", desc: "VPN → pharm + pump", dur: 14,
     caps: ["One vendor password. Watch the feed narrate P1→P6 in purple.", "Pharmacy and pump go Tier-1; backups burn last. Rank follows patients, not malware."] },
 };
 function setCaption(txt, hot) {
@@ -102,8 +102,8 @@ async function ambient() {
 }
 function renderConsole() {
   $("consoleScen").innerHTML = Object.values(SCEN).map((s) =>
-    `<button class="scn ${SC.running === s.id ? "running" : ""}" data-s="${s.id}" ${SC.running ? "disabled" : ""}>
-     <span class="sl">${s.id}</span><span class="sn">${s.name}</span><span class="sd">${s.desc}</span></button>`).join("");
+    `<button class="scn ${SC.running === s.id ? "running" : ""}" data-s="${s.id}" ${SC.running ? "disabled" : ""} title="${esc(s.name)} — ${esc(s.desc)}">
+     <span class="sl">${s.id}</span><span class="sn">${s.short || s.name}</span><span class="sd">${s.desc}</span></button>`).join("");
   $("consoleScen").querySelectorAll(".scn").forEach((b) => (b.onclick = () => runScenario(b.dataset.s, true)));
 }
 
@@ -182,7 +182,7 @@ function buildGraph(g) {
       { selector: "node.dim, edge.dim", style: { opacity: 0.13 } },
       { selector: "edge.hidden", style: { display: "none" } },
       { selector: "node.compromised", style: { "border-color": "#FF4D5E", "border-width": 2.5, "background-color": "#1E1216" } },
-      { selector: "node.pulse", style: { "border-width": 4.5, "overlay-color": "rgba(255,77,94,0.28)", "overlay-opacity": 0.8 } },
+      { selector: "node.pulse", style: { "border-width": 4.5 } },
       { selector: "node.contained", style: { "border-color": "#54B9C9", "border-width": 2.5, "background-color": "#0F1B20" } },
       { selector: "node.onpath", style: { "border-color": "#57C7A8", "border-width": 2.5 } },
       { selector: "node.atrisk", style: { "border-width": 3.2 } },

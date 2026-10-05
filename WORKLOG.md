@@ -240,8 +240,19 @@ Three stacked faults, found via headless Chromium console capture:
 3. Feed was fetched but never rendered (`S.feed` filled, `#feed` untouched) — added
    the render call; telemetry strip now live.
 - Verified: zero console errors headless, 8 queue cards, 40 feed rows, 5 scenario
-  buttons, screenshot `docs/screenshots/pulse_console.png` shows the full console
+  buttons,   screenshot `docs/screenshots/pulse_console.png` shows the full console
   (queue + graph + feed + analytics + CODE DARK).
+- Pulse softened: the 650 ms compromised-node blink used a red overlay wash over
+  the whole node body — now only the border throbs (2.5↔4.5 px), overlay removed.
+- Console overflow: 5 scenarios + 3 buttons exceeded the fixed 218 px footer row
+  (E clipped, badge/name/desc mashed inline). Fixed with an override block —
+  badge+name on one grid row, single-line ellipsis desc, short labels
+  (full names in hover title), trimmed note, scroll fallback on the panel.
+  Screenshot-verified fitting with zero console errors.
+- UI features doc: new `docs/ui_features.md` — every control in the PULSE console
+  (top bar → capbar → queue → graph → ledger → modal → feed → analytics →
+  console → audit drawer → toasts) with how-to-use + what-happens; complements
+  `site_outputs.md` (what things mean). README cross-links both.
 (run/test/demo/reset/clean/vendor/sim), emitter flags + expected outcome per scenario,
 curl recipes for incidents/detail/graph/approve/audit, tamper demo, `make_visuals.py`,
 troubleshooting table (PYTHONPATH, connection refused, blank graph, port busy).
