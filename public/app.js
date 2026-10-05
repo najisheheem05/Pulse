@@ -179,18 +179,18 @@ function buildGraph(g) {
       { selector: "edge", style: { width: "data(w)", "curve-style": "data(curve)", "line-color": "data(color)", opacity: "data(op)",
         "target-arrow-shape": "data(arrow)", "target-arrow-color": "data(color)", "arrow-scale": 0.6 } },
       { selector: "edge.k-reach", style: { "line-style": "dashed", "line-dash-pattern": [3, 4] } },
-      { selector: "node.dim, edge.dim", opacity: 0.13 },
-      { selector: "edge.hidden", display: "none" },
-      { selector: "node.compromised", "border-color": "#FF4D5E", "border-width": 2.5, "background-color": "#1E1216" },
-      { selector: "node.pulse", "border-width": 4.5, "overlay-color": "rgba(255,77,94,0.28)", "overlay-opacity": 0.8 },
-      { selector: "node.contained", "border-color": "#54B9C9", "border-width": 2.5, "background-color": "#0F1B20" },
-      { selector: "node.onpath", "border-color": "#57C7A8", "border-width": 2.5 },
-      { selector: "node.atrisk", "border-width": 3.2 },
-      { selector: "edge.attack", "line-color": "#FF4D5E", "target-arrow-color": "#FF4D5E", width: 2.3, opacity: 1,
-        "line-style": "dashed", "line-dash-pattern": [7, 5] },
-      { selector: "edge.reachrisk", "line-color": "#F5B942", "target-arrow-color": "#F5B942", width: 1.8, opacity: 0.95,
-        "line-style": "dashed", "line-dash-pattern": [4, 4] },
-      { selector: "edge.cut", "line-color": "#3A4A55", width: 1, opacity: 0.25, "line-dash-pattern": [2, 5] },
+      { selector: "node.dim, edge.dim", style: { opacity: 0.13 } },
+      { selector: "edge.hidden", style: { display: "none" } },
+      { selector: "node.compromised", style: { "border-color": "#FF4D5E", "border-width": 2.5, "background-color": "#1E1216" } },
+      { selector: "node.pulse", style: { "border-width": 4.5, "overlay-color": "rgba(255,77,94,0.28)", "overlay-opacity": 0.8 } },
+      { selector: "node.contained", style: { "border-color": "#54B9C9", "border-width": 2.5, "background-color": "#0F1B20" } },
+      { selector: "node.onpath", style: { "border-color": "#57C7A8", "border-width": 2.5 } },
+      { selector: "node.atrisk", style: { "border-width": 3.2 } },
+      { selector: "edge.attack", style: { "line-color": "#FF4D5E", "target-arrow-color": "#FF4D5E", width: 2.3, opacity: 1,
+        "line-style": "dashed", "line-dash-pattern": [7, 5] } },
+      { selector: "edge.reachrisk", style: { "line-color": "#F5B942", "target-arrow-color": "#F5B942", width: 1.8, opacity: 0.95,
+        "line-style": "dashed", "line-dash-pattern": [4, 4] } },
+      { selector: "edge.cut", style: { "line-color": "#3A4A55", width: 1, opacity: 0.25, "line-dash-pattern": [2, 5] } },
       { selector: "node[ghost]", style: { shape: "ellipse", width: 6, height: 6, "background-color": "data(gc)", "border-width": 0, opacity: 0.95, events: "no" } },
     ],
     layout: { name: "preset" }, wheelSensitivity: 0.2, minZoom: 0.35, maxZoom: 2.6 });
@@ -502,9 +502,9 @@ function checkCode() {
 }
 function tick() {
   const now = new Date();
-  $("topClock").innerHTML = "<b>" + now.toTimeString().slice(0, 8) + "</b><br>LIVE · <span>×1</span>";
-  $("simClock").textContent = now.toTimeString().slice(0, 8);
-  $("simRate").textContent = "LIVE";
+  const sc = $("simClock"), sr = $("simRate");
+  if (sc) sc.textContent = now.toTimeString().slice(0, 8);
+  if (sr) sr.textContent = "LIVE";
   $("bpm").textContent = ({ NOMINAL: 72, WATCH: 96, ALERT: 124, "CODE DARK": 150 })[S.code] + " BPM" + (S.code === "CODE DARK" ? " · IRREG" : "");
   if (S.stats) $("capR").textContent = "EVT " + S.stats.events_total + " · ALERTS " + S.stats.alerts_total + " · INCIDENTS " + S.stats.incidents_open;
   const t = Date.now() / 1000;
@@ -549,6 +549,7 @@ async function refreshAll(force) {
     });
     S.incidents = incs; S.stats = stats; S.feed = feed;
     renderQueue(); renderCharts();
+    $("feed").innerHTML = feed.map(feedRowHTML).join("");
     if (!cy && S.graph) buildGraph(S.graph);
     paintGraph();
     // detail: re-render only on change (preserves scroll otherwise)

@@ -222,6 +222,26 @@ verbatim, generated into `public/index.html` via scripted transform) and rewrote
 - Vendored `lucide.min.js` (offline-safe icons); Google Fonts with system fallback.
 - Verified: 18/18 tests (new: graph rel/reach, stats/tamper/signals), live ambient +
   campaign on the new UI (8 incidents, reach edges hot, ledger + scatter render data).
+
+---
+
+## Graph outage post-mortem (reported: "dependency graph not working")
+
+Three stacked faults, found via headless Chromium console capture:
+1. **Fatal**: transcribed stylesheet entries lost their `style:` wrapper
+   (`{selector:'node.compromised', 'border-color':...}` instead of
+   `{selector:..., style:{...}}`). Valid JS — so `node --check` passed — but
+   Cytoscape's `appendFromJson` does `Object.keys(n.style||n.css)` → throw on every
+   `buildGraph`, caught silently per poll. Graph constructed once (canvases existed)
+   but never painted/updated. Fixed all 11 entries.
+2. `tick()` overwrote `#topClock.innerHTML`, destroying `#simClock`/`#simRate`,
+   then crashed addressing them every 250 ms (also starved the code-level check).
+   Now updates the spans in place with null guards.
+3. Feed was fetched but never rendered (`S.feed` filled, `#feed` untouched) — added
+   the render call; telemetry strip now live.
+- Verified: zero console errors headless, 8 queue cards, 40 feed rows, 5 scenario
+  buttons, screenshot `docs/screenshots/pulse_console.png` shows the full console
+  (queue + graph + feed + analytics + CODE DARK).
 (run/test/demo/reset/clean/vendor/sim), emitter flags + expected outcome per scenario,
 curl recipes for incidents/detail/graph/approve/audit, tamper demo, `make_visuals.py`,
 troubleshooting table (PYTHONPATH, connection refused, blank graph, port busy).
